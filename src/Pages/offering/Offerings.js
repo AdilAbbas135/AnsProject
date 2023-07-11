@@ -83,7 +83,7 @@ const Offerings = () => {
       ) : (
         <div className="py-6">
           <div className="mx-auto max-w-3xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-8 lg:px-8">
-            <main className="lg:col-span-8">
+            <main className="lg:col-span-12">
               <h1 className="text-3xl font-semibold leading-6 text-gray-900">
                 Alone we can do little bit together we can do so much
               </h1>
@@ -162,108 +162,6 @@ const Offerings = () => {
                 )}
               </div>
             </main>
-            <aside className="mt-36 hidden sm:col-span-4 sm:block">
-              <div className="sticky top-6 space-y-4">
-                <form className="hidden lg:block">
-                  <h3 className="sr-only">Categories</h3>
-                  {/* eslint-disable-next-line */}
-                  <ul
-                    role="list"
-                    className="space-y-4 border-b pb-6 text-sm font-medium text-gray-900"
-                  >
-                    {subCategories.map((category) => (
-                      <li
-                        key={category.name}
-                        onClick={() => handlecategoryfetch(category.name)}
-                      >
-                        {/* eslint-disable-next-line */}
-                        <a>{category.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Collapse
-                    className="p-0"
-                    defaultActiveKey={["0"]}
-                    ghost
-                    expandIconPosition="end"
-                    expandIcon={() => <PlusSmallIcon className="h-5 w-5" />}
-                  >
-                    <Panel
-                      header="Minimum Investment"
-                      key="1"
-                      className="font-bold "
-                    >
-                      <Radio.Group
-                      // onChange={onChangeInvestment} value={value}
-                      >
-                        <Space direction="vertical">
-                          <Radio value={10}>10</Radio>
-                          <Radio value={100}>100</Radio>
-                        </Space>
-                      </Radio.Group>
-                    </Panel>
-                  </Collapse>
-                  {/* {filters.map((section) => (
-              <Disclosure
-                as="div"
-                key={section.id}
-                className="border-b border-gray-200 py-6"
-              >
-                {({ open }) => (
-                  <>
-                    <h3 className="-my-3 flow-root">
-                      <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500">
-                        <span className="font-medium text-gray-900">
-                          {section.name}
-                        </span>
-                        <span className="ml-6 flex items-center">
-                          {open ? (
-                            <MinusSmIcon
-                              className="h-5 w-5"
-                              aria-hidden="true"
-                            />
-                          ) : (
-                            <PlusSmIcon
-                              className="h-5 w-5"
-                              aria-hidden="true"
-                            />
-                          )}
-                        </span>
-                      </Disclosure.Button>
-                    </h3>
-                    <Disclosure.Panel className="pt-6">
-                      <div className="space-y-4">
-                        {section.options.map((option, optionIdx) => (
-                          <div
-                            key={option.value}
-                            className="flex items-center"
-                          >
-                            <input
-                              id={`filter-${section.id}-${optionIdx}`}
-                              name={`${section.id}[]`}
-                              defaultValue={option.value}
-                              type="radio"
-                              defaultChecked={option.checked}
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label
-                              htmlFor={`filter-${section.id}-${optionIdx}`}
-                              className="ml-3 text-sm text-gray-600"
-                            >
-                              {option.label}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </Disclosure.Panel>
-                  </>
-                )}
-              </Disclosure>
-            ))} */}
-                </form>
-              </div>
-            </aside>
           </div>
         </div>
       )}

@@ -119,7 +119,7 @@ const OfferingsProfile = () => {
       {loading ? (
         <div className="h-[30vh] flex items-center justify-center">
           <Spin indicator={<LoadingOutlined style={{ fontSize: 45 }} spin />} />
-          <h2 className="ml-5">Loading your Offers</h2>
+          <h2 className="ml-5">Loading your Charities</h2>
         </div>
       ) : (
         <div
@@ -132,9 +132,9 @@ const OfferingsProfile = () => {
           <div className="flex p-4 justify-between">
             <div className="w-3/5">
               <h1 className="font-large text-lg font-bold text-black">
-                Offerings
+                Charities
               </h1>
-              <p>All of Your Offerings lies here</p>
+              <p>All the Charities request added by you shows here</p>
             </div>
 
             <div className="w-1/5 p-4 flex justify-end">
@@ -142,24 +142,24 @@ const OfferingsProfile = () => {
                 onClick={showModal}
                 className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Add Offering
+                Add Charity
               </button>
               <Modal
-                title="Add Offering"
+                title="Add Charity"
                 open={open}
                 onOk={handleOk}
                 onCancel={() => setOpen(false)}
                 confirmLoading={confirmLoading}
                 width={900}
                 style={{ top: 20 }}
-                okText="Add Offering"
+                okText="Add Charity"
               >
                 <div>
                   <form onSubmit={(e) => AddOffering(e)}>
                     <div className="bg-white px-4 pb-4 sm:p-6 sm:pb-4">
                       <dl className="space-y-2 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10 md:space-y-0">
                         <div>
-                          <label>Offering Name</label>
+                          <label>Charity Name</label>
                           <input
                             required
                             type="text"
@@ -428,7 +428,7 @@ const OfferingsProfile = () => {
               </table>
             </div>
           ) : (
-            <h1>No Offerings to Show</h1>
+            <h1>No Charities to Show</h1>
           )}
         </div>
       )}

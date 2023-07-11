@@ -141,13 +141,17 @@ const UpdateProfile = () => {
                         <h1 className="font-bold text-xl mb-0 text-center">
                           Rs. {millify(dashboard?.totatDonations)}
                         </h1>
-                        <h1 className="font-[400]">Total Funds Donated</h1>
+                        <h1 className="font-[400] text-[1em]">
+                          Total Funds Donated
+                        </h1>
                       </div>
                       <div>
                         <h1 className="font-bold text-xl mb-0 text-center">
                           Rs. {millify(dashboard?.totalRecieved)}
                         </h1>
-                        <h1 className="font-[400]">Total Funds Recieved</h1>
+                        <h1 className="font-[400] text-[1em]">
+                          Total Funds Recieved
+                        </h1>
                       </div>
                     </div>
                   </div>
@@ -415,7 +419,7 @@ const UpdateProfile = () => {
                       <h1>No Payment Method Found</h1>
                     </Tabs.TabPane> */}
 
-                    <Tabs.TabPane key={"Offerings"} tab="Offerings">
+                    <Tabs.TabPane key={"Charity"} tab="Charity">
                       <OfferingsProfile />
                     </Tabs.TabPane>
                   </Tabs>
