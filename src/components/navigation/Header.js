@@ -41,7 +41,7 @@ const Header = () => {
   };
 
   const userNavigation = [
-    { name: "Offerings", href: "/offerings" },
+    { name: "Charity", href: "/offerings" },
     { name: "Portfolio", href: "/profile" },
     { name: "My Account", href: "/profile/update" },
   ];
