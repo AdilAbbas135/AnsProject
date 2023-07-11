@@ -13,11 +13,12 @@ const Home = () => {
   const [allofferings, setallofferings] = useState([]);
   const [loading, setloading] = useState(true);
   useEffect(() => {
-    document.title = "Chainraise | Home";
+    document.title = "Care & Share | Home";
     axios
-      .get("https://beta.chainraise.info/manage/api/offers/listing")
+      .get("http://localhost:5000/api/offerings")
       .then((result) => {
-        setallofferings(result?.data?.data);
+        console.log(result?.data?.offerings);
+        setallofferings(result?.data?.offerings);
         setloading(false);
       })
       .catch((err) => {
@@ -80,7 +81,7 @@ const Home = () => {
                             Need funds?
                           </span>
                           <span className="ml-4 text-sm text-stone-900">
-                            Start your own ChainRaise!
+                            Start your own Care & Share!
                           </span>
                           <FiChevronRight
                             className="ml-2 h-5 w-5 text-cr-primary font-bold"
@@ -92,15 +93,16 @@ const Home = () => {
 
                     <h1 className="my-4 text-center text-4xl tracking-tight sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
                       <span className="font-bold text-cr-primary">
-                        Investing in the next big thing should be for
+                        Your Generosity can save
                       </span>{" "}
                       <span className="bg-gradient-to-r from-cr-secondary to-cr-primary bg-clip-text pb-3 font-extrabold text-transparent">
-                        everybody
+                        lives
                       </span>
                     </h1>
                     <p className="mt-3 text-center text-base text-stone-900 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                      Join ChainRaise now to get started investing in start-ups
-                      and small businesses doing things you care about.
+                      Join Care & Share now to get started investing in
+                      start-ups and small businesses doing things you care
+                      about.
                     </p>
                   </div>
                 </div>
@@ -145,16 +147,16 @@ const Home = () => {
                 {allofferings.length === 0 ? (
                   <h1>No Offerings to Show</h1>
                 ) : (
-                  allofferings.map((raise) => (
+                  allofferings.map((raise, index) => (
                     <div
-                      key={raise.id}
+                      key={index}
                       className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
                     >
                       <div className="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
                         <img
                           src={
-                            raise.banner
-                              ? raise.banner
+                            raise.featuredImage
+                              ? raise.featuredImage
                               : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1aGhqQ0QRQUcv7lHtXn4xLzFt9pzo7L_duQ&usqp=CAU"
                           }
                           alt=""
@@ -181,14 +183,14 @@ const Home = () => {
                           </a>
                         </h3>
                         <p className="text-sm text-gray-500">
-                          {raise.shortDescription}
+                          {raise.shortDescription.substring(1, 50)}...
                         </p>
                         <div className="flex flex-1 flex-col justify-end">
                           <p className="text-sm italic text-gray-500">
-                            {raise.type}
+                            {raise.issueType}
                           </p>
                           <p className="text-base font-medium text-gray-900">
-                            $ {raise.goal}
+                            $ {raise.target}
                           </p>
                         </div>
                       </div>

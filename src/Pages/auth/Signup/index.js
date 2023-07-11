@@ -1,20 +1,58 @@
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { SiGmail } from "react-icons/si";
 import { FaFacebookSquare } from "react-icons/fa";
 import { GrLinkedin } from "react-icons/gr";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Signup = () => {
-  // eslint-disable-next-line
   const [email, setemail] = useState();
-  //  eslint-disable-next-line
   const [password, setpassword] = useState();
+  const [username, setusername] = useState();
+  const [loading, setloading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Sign up | Chainraise";
   }, []);
+
+  const CreateAccount = async () => {
+    setloading(true);
+    await axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/account/createaccount`, {
+        email,
+        password,
+        username,
+      })
+      .then((result) => {
+        console.log(result);
+        if (result.data?.success) {
+          navigate("/auth/signup/sendemail");
+        }
+      })
+      .catch((error) => {
+        setloading(false);
+        console.log(error);
+        toast.error(
+          error?.response?.data?.error
+            ? error.response.data.error
+            : "Something went wrong! Try Again",
+          {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
+      });
+  };
   return (
     <>
       <div className="min-h-screen bg-gray-100">
@@ -27,7 +65,7 @@ const Signup = () => {
                   <a>
                     <img
                       className="mx-auto h-12 w-auto"
-                      src="/assets/chainraise_logo_black_text.png"
+                      src="/assets/chainraise_logo_black_text.jpeg"
                       alt=""
                     />
                   </a>
@@ -36,65 +74,32 @@ const Signup = () => {
                   Create a New Account
                 </h2>
               </div>
-              <div className=" grid grid-cols-3 gap-x-2">
-                <div className="    ">
-                  <button
-                    className="flex border border-gray-300 px-10  py-2 text-center text-gray-900"
-                    // onClick={() =>
-                    //   signIn("facebook", {
-                    //     callbackUrl: "/profile",
-                    //   })
-                    // }
-                  >
-                    <FaFacebookSquare
-                      size={25}
-                      round
-                      className="items-center"
-                    />
-                  </button>
-                </div>
-                <div className="  ">
-                  <button
-                    className="flex border border-gray-300 px-10 py-2 text-center"
-                    // onClick={() =>
-                    //   signIn("google", {
-                    //     callbackUrl: "/profile",
-                    //   })
-                    // }
-                  >
-                    <SiGmail size={25} />
-                  </button>
-                </div>
-                <div className="">
-                  <button
-                    className="flex border border-gray-300 px-10 py-2 text-center "
-                    // onClick={() =>
-                    //   signIn("linkedin", {
-                    //     callbackUrl: "/profile",
-                    //   })
-                    // }
-                  >
-                    <GrLinkedin size={25} />
-                  </button>
-                </div>
-              </div>
-              <div className="relative flex items-center py-4">
-                <div className="flex-grow border-t border-gray-400"></div>
-                <span className="mx-4 flex-shrink text-gray-400">
-                  Or Continue with
-                </span>
-                <div className="flex-grow border-t border-gray-400"></div>
-              </div>
               <form
                 className="mt-8 space-y-6"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  //  TryLogin();
+                  CreateAccount();
                 }}
               >
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="-space-y-px rounded-md shadow-sm">
                   <div>
+                    <label htmlFor="username" className="sr-only">
+                      User Name
+                    </label>
+                    <input
+                      id="username"
+                      name="username"
+                      type="text"
+                      value={username}
+                      onChange={(e) => setusername(e.target.value)}
+                      autoComplete="username"
+                      required
+                      className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      placeholder="username"
+                    />
+                  </div>
+                  <div className="mt-8 space-y-6">
                     <label htmlFor="email-address" className="sr-only">
                       Email address
                     </label>
@@ -102,6 +107,7 @@ const Signup = () => {
                       id="email-address"
                       name="email"
                       type="email"
+                      value={email}
                       onChange={(e) => setemail(e.target.value)}
                       autoComplete="email"
                       required
@@ -117,6 +123,7 @@ const Signup = () => {
                       id="password"
                       name="password"
                       type="password"
+                      value={password}
                       onChange={(e) => setpassword(e.target.value)}
                       autoComplete="current-password"
                       required
@@ -126,37 +133,11 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <label
-                      htmlFor="remember-me"
-                      className="ml-2 block text-sm text-gray-900"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-
-                  <div className="text-sm">
-                    {/* eslint-disable-next-line */}
-                    <a
-                      href="#"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Forgot your password?
-                    </a>
-                  </div>
-                </div>
-
                 <div>
                   <button
                     type="submit"
-                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    disabled={loading ? true : false}
+                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                       <LockClosedIcon

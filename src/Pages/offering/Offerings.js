@@ -48,10 +48,10 @@ const Offerings = () => {
 
   const fetchOfferings = async () => {
     axios
-      .get("https://beta.chainraise.info/manage/api/offers/listing")
+      .get("http://localhost:5000/api/offerings")
       .then((result) => {
         // console.log(result?.data?.data);
-        setallofferings(result?.data?.data);
+        setallofferings(result?.data?.offerings);
         setloading(false);
       })
       .catch((err) => {
@@ -85,22 +85,10 @@ const Offerings = () => {
           <div className="mx-auto max-w-3xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-8 lg:px-8">
             <main className="lg:col-span-8">
               <h1 className="text-3xl font-semibold leading-6 text-gray-900">
-                Invest in the next big opportunity here!
+                Alone we can do little bit together we can do so much
               </h1>
 
-              <h2 className="text-l mt-4 leading-6 text-gray-600">
-                All companies are vetted & have passed our due dilligence
-                process.{" "}
-              </h2>
-              <h2 className="text-l leading-6 text-gray-600">
-                {" "}
-                Click <span className="cursor-pointer text-cyan-500">
-                  here
-                </span>{" "}
-                to learn more.
-              </h2>
-
-              <div className="flex items-center justify-end">
+              {/* <div className="flex items-center justify-end">
                 <Select
                   defaultValue="Sort"
                   style={{ width: 200 }}
@@ -112,7 +100,7 @@ const Offerings = () => {
                   <Option value="MinimumHigh">Minimum: High to Low</Option>
                   <Option value="MinimumLow">Minimum: Low to High</Option>
                 </Select>
-              </div>
+              </div> */}
 
               <hr className="my-4" />
               <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
@@ -130,8 +118,8 @@ const Offerings = () => {
                         {/* eslint-disable-next-line */}
                         <img
                           src={
-                            product.banner
-                              ? product.banner
+                            product.featuredImage
+                              ? product.featuredImage
                               : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1aGhqQ0QRQUcv7lHtXn4xLzFt9pzo7L_duQ&usqp=CAU"
                           }
                           alt="offering-image"
@@ -162,10 +150,10 @@ const Offerings = () => {
                         </p>
                         <div className="flex flex-1 flex-col justify-end">
                           <p className="text-sm italic text-gray-500">
-                            {product.type}
+                            {product.issueType}
                           </p>
                           <p className="text-base font-medium text-gray-900">
-                            $ {product.goal}
+                            $ {product.target}
                           </p>
                         </div>
                       </div>
