@@ -2,11 +2,13 @@ import { CircularProgress } from "@mui/material";
 import axios from "axios";
 
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { createAlert } from "../../../Redux/Alert";
 
 const Emailverification = (props) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [sucess, setsucess] = useState(undefined);
   const [error, seterror] = useState(undefined);
   const user = new URLSearchParams(useLocation().search).get("user");
@@ -21,12 +23,30 @@ const Emailverification = (props) => {
         .then((response) => {
           console.log(response);
           localStorage.setItem("authtoken", response.data.authtoken);
-          navigate("/profile");
+          navigate("/");
           setsucess(true);
+          dispatch(
+            createAlert({
+              type: "success",
+              message: "Now You Can Sign Into Your Account",
+              options: {
+                position: "top-right",
+              },
+            })
+          );
         })
         .catch((err) => {
           console.log(err);
           seterror(true);
+          dispatch(
+            createAlert({
+              type: "error",
+              message: "Something went wrong! Try again later",
+              options: {
+                position: "top-right",
+              },
+            })
+          );
         });
     };
     verifyemail();
