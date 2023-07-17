@@ -1,62 +1,78 @@
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { SiGmail } from "react-icons/si";
-import { FaFacebookSquare } from "react-icons/fa";
-import { GrLinkedin } from "react-icons/gr";
-import { toast } from "react-toastify";
 import axios from "axios";
-import "../login.css";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { createAdminSession } from "../../Redux/SessionRedux";
+import { createAlert } from "../../Redux/Alert";
+import "./style.css";
 
-const Signup = () => {
-  const [email, setemail] = useState();
-  const [password, setpassword] = useState();
-  const [username, setusername] = useState();
+const AdminSignin = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
   const [loading, setloading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.title = "Sign up | Share & Care";
-  }, []);
-
-  const CreateAccount = async () => {
+  const TryLogin = async () => {
     setloading(true);
+
     await axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/account/createaccount`, {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/admin/login`, {
         email,
         password,
-        username,
       })
-      .then((result) => {
-        console.log(result);
-        if (result.data?.success) {
-          navigate("/auth/signup/sendemail");
-        }
-      })
-      .catch((error) => {
+      .then((response) => {
+        console.log(response);
+        dispatch(
+          createAlert({
+            type: "success",
+            message: "Login Successfull",
+            options: {
+              position: "top-right",
+            },
+          })
+        );
+        localStorage.setItem("admin-token", response.data.authtoken);
+        dispatch(createAdminSession());
+        navigate(`/admin-profile`);
         setloading(false);
-        console.log(error);
-        toast.error(
-          error?.response?.data?.error
-            ? error.response.data.error
-            : "Something went wrong! Try Again",
-          {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          }
+      })
+      .catch((err) => {
+        console.log("ok i am in the error");
+        console.log(err);
+        setloading(false);
+        dispatch(
+          createAlert({
+            type: "error",
+            message: err?.response?.data?.msg
+              ? err?.response?.data?.msg
+              : "Wrong Credentials! Try Again",
+          })
         );
       });
   };
+  useEffect(() => {
+    if (location?.state?.error) {
+      dispatch(
+        createAlert({
+          type: "error",
+          message: location?.state?.error
+            ? location?.state?.error
+            : "Something Went Wrong! Try Again",
+        })
+      );
+    }
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <>
-      <div className="h-screen main-class bg-gray-100 flex items-center justify-center">
+      <div className="h-screen bg-gray-100 main-class flex items-center justify-center">
         <div className="w-full max-w-md space-y-8 bg-white py-10 px-12 rounded-md shadow-md">
           <div>
             <Link to="/">
@@ -65,40 +81,25 @@ const Signup = () => {
                 <img
                   className="mx-auto h-12 w-auto"
                   src="/assets/chainraise_logo_black_text.jpeg"
-                  alt=""
+                  alt="Chainraise Logo"
                 />
               </a>
             </Link>
             <h2 className="mt-6 text-center text-xl font-bold text-gray-900">
-              Create a New Account
+              Admin Login
             </h2>
           </div>
+
           <form
             className="mt-8 space-y-6"
             onSubmit={(e) => {
               e.preventDefault();
-              CreateAccount();
+              TryLogin();
             }}
           >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
-                <label htmlFor="username" className="sr-only">
-                  User Name
-                </label>
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  value={username}
-                  onChange={(e) => setusername(e.target.value)}
-                  autoComplete="username"
-                  required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="username"
-                />
-              </div>
-              <div className="mt-8 space-y-6">
                 <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
@@ -134,9 +135,9 @@ const Signup = () => {
 
             <div>
               <button
-                type="submit"
                 disabled={loading ? true : false}
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                type="submit"
+                className="disabled:opacity-50 disabled:cursor-not-allowed h-10 group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon
@@ -144,7 +145,19 @@ const Signup = () => {
                     aria-hidden="true"
                   />
                 </span>
-                Sign Up
+                {loading ? (
+                  <Spin
+                    indicator={
+                      <LoadingOutlined
+                        className="text-white"
+                        style={{ fontSize: 20, color: "white" }}
+                        spin
+                      />
+                    }
+                  />
+                ) : (
+                  <span>Sign in</span>
+                )}
               </button>
             </div>
           </form>
@@ -154,4 +167,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default AdminSignin;

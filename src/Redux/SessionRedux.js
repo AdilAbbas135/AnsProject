@@ -24,6 +24,12 @@ const SessionSlice = createSlice({
       state.session.user = user;
       state.session.authenticated = true;
     },
+    createAdminSession: (state, action) => {
+      const token = localStorage.getItem("admin-token");
+      let user = jwtDecode(token);
+      state.session.user = user;
+      state.session.authenticated = true;
+    },
     clearSession: (state, session) => {
       state.session = {};
       localStorage.removeItem("authtoken");
@@ -42,5 +48,6 @@ const SessionSlice = createSlice({
   },
 });
 
-export const { createSession, clearSession, getSession } = SessionSlice.actions;
+export const { createSession, clearSession, getSession, createAdminSession } =
+  SessionSlice.actions;
 export default SessionSlice.reducer;

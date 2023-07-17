@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import SendEmail from "./Pages/auth/Signup/sendemail";
 import Emailverification from "./Pages/auth/Signup/emailverification";
 import DonateToOffering from "./Pages/offering/Donate";
+import AdminSignin from "./Pages/admin/Login";
 
 function App() {
   return (
@@ -24,16 +25,10 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/raise-funds" element={<Raisefunds />} />
         <Route exact path="/contact" element={<Contact />} />
-        <Route exact path="/faq" element={<Faq />} />
         <Route exact path="/offerings" element={<Offerings />} />
         <Route exact path="/offerings/:name" element={<SingleOffering2 />} />
-        <Route
-          exact
-          path="/offerings/:name/donate"
-          element={<DonateToOffering />}
-        />
+
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/profile/update" element={<UpdateProfile />} />
         <Route exact path="/auth/signin" element={<Signin />} />
@@ -44,13 +39,7 @@ function App() {
           path="/auth/signup/emailverification"
           element={<Emailverification />}
         />
-        <Route exact path={"/organizations"} element={<Organization />} />
-        <Route
-          exact
-          path="/organizations/:name"
-          element={<SingleOrganization />}
-        />
-        <Route exact path="/offerings/:id/invest" element={<Invest />} />
+        <Route exact path="/admin" element={<AdminSignin />} />
       </Routes>
     </div>
   );

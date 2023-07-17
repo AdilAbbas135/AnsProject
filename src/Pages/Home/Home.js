@@ -74,21 +74,18 @@ const Home = () => {
                 <div className="mx-auto pt-24 pb-12 lg:max-w-none">
                   <div className="px-2">
                     <div className="flex w-full justify-center">
-                      <Link to={"/raise-funds"}>
-                        {/* eslint-disable-next-line */}
-                        <a className="mx-auto inline-flex items-center rounded-full border border-gray-700 bg-transparent p-1 pr-2 sm:text-base lg:text-sm xl:text-base">
-                          <span className="rounded-full bg-cr-primary px-3 py-0.5 text-xs font-semibold uppercase leading-5 tracking-wide text-white">
-                            Need funds?
-                          </span>
-                          <span className="ml-4 text-sm text-stone-900">
-                            Start your own Care & Share!
-                          </span>
-                          <FiChevronRight
-                            className="ml-2 h-5 w-5 text-cr-primary font-bold"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </Link>
+                      <div className="mx-auto inline-flex items-center rounded-full border border-gray-700 bg-transparent p-1 pr-2 sm:text-base lg:text-sm xl:text-base">
+                        <span className="rounded-full bg-cr-primary px-3 py-0.5 text-xs font-semibold uppercase leading-5 tracking-wide text-white">
+                          Need funds?
+                        </span>
+                        <span className="ml-4 text-sm text-stone-900">
+                          Start your own Care & Share!
+                        </span>
+                        <FiChevronRight
+                          className="ml-2 h-5 w-5 text-cr-primary font-bold"
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
 
                     <h1 className="my-4 text-center text-4xl tracking-tight sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">

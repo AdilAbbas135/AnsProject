@@ -35,13 +35,12 @@ const Header = () => {
       },
     ],
     pages: [
-      { name: "FAQ", href: "/faq" },
+      { name: "Charity", href: "/offerings" },
       { name: "Contact Us", href: "/contact" },
     ],
   };
 
   const userNavigation = [
-    { name: "Charity", href: "/offerings" },
     { name: "Portfolio", href: "/profile" },
     { name: "My Account", href: "/profile/update" },
   ];
