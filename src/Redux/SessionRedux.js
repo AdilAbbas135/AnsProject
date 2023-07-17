@@ -33,6 +33,7 @@ const SessionSlice = createSlice({
     clearSession: (state, session) => {
       state.session = {};
       localStorage.removeItem("authtoken");
+      localStorage.removeItem("admin-token");
       state.session.authenticated = false;
     },
     getSession: (state, session) => {

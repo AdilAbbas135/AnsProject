@@ -37,10 +37,10 @@ const AdminSignin = () => {
             },
           })
         );
-        localStorage.setItem("admin-token", response.data.authtoken);
+        localStorage.setItem("admin-token", response.data.token);
         dispatch(createAdminSession());
-        navigate(`/admin-profile`);
         setloading(false);
+        navigate(`/admin-profile`);
       })
       .catch((err) => {
         console.log("ok i am in the error");
