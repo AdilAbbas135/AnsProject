@@ -88,20 +88,6 @@ const Offerings = () => {
                 Alone we can do little bit together we can do so much
               </h1>
 
-              {/* <div className="flex items-center justify-end">
-                <Select
-                  defaultValue="Sort"
-                  style={{ width: 200 }}
-                  onChange={handleChangeSelect}
-                >
-                  <Option value="Most Popular">Most Popular</Option>
-                  <Option value="Ending Soon">Ending Soon</Option>
-                  <Option value="Newest">Newest</Option>
-                  <Option value="MinimumHigh">Minimum: High to Low</Option>
-                  <Option value="MinimumLow">Minimum: Low to High</Option>
-                </Select>
-              </div> */}
-
               <hr className="my-4" />
               <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
                 {allofferings.length === 0 ? (

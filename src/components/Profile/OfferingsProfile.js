@@ -1,14 +1,16 @@
-import { Checkbox, Modal, Spin } from "antd";
+import { Modal, Spin } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import "./offeringProfile.css";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { LoadingOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const OfferingsProfile = () => {
+  const navigate = useNavigate();
   let submitBtn = useRef();
   const session = useSelector((state) => state.session.session);
   const [allofferings, setallofferings] = useState([]);
@@ -115,7 +117,6 @@ const OfferingsProfile = () => {
 
   return (
     <div className="oofering-container">
-      <ToastContainer />
       {loading ? (
         <div className="h-[30vh] flex items-center justify-center">
           <Spin indicator={<LoadingOutlined style={{ fontSize: 45 }} spin />} />
@@ -402,11 +403,17 @@ const OfferingsProfile = () => {
                       <td className="py-3 px-5">Active</td>
 
                       <td className="py-3 px-5 flex">
+                        {/* eslint-disable-next-line */}
                         <a
-                          href="/"
+                          onClick={() => {
+                            window.scrollTo({ top: 0 });
+                            navigate(`/offerings/${offering?.name}`, {
+                              state: offering,
+                            });
+                          }}
                           className="edit-btn p-2 rounded-lg bg-[#fff8dd] hover:bg-[#ffc700]"
                         >
-                          <AiFillEdit
+                          <AiFillEye
                             size={20}
                             className="text-[#ffc700] edit-icon"
                           />
