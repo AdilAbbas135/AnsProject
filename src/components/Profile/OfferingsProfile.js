@@ -61,24 +61,17 @@ const OfferingsProfile = () => {
     data.append("description", offeringdata.description);
     data.append("shortDescription", offeringdata.shortDescription);
     data.append("issuerId", offeringdata.issuerId);
-    await toast.promise(
-      axios
-        .post("http://localhost:5000/api/offerings/addoffering", data)
-        .then((result) => {
-          setOpen(false);
-          setConfirmLoading(false);
-          fetchallOfferings();
-        })
-        .catch((err) => {
-          setConfirmLoading(false);
-        }),
-      {
-        pending: "Adding Offering Please Wait",
-        success: "Your Offering Has been added Successfully",
-        error: "Error in creating your offering! Try Again",
-      },
-      { autoClose: 3000, closeOnClick: true, pauseOnHover: false }
-    );
+
+    axios
+      .post("http://localhost:5000/api/offerings/addoffering", data)
+      .then((result) => {
+        setOpen(false);
+        setConfirmLoading(false);
+        fetchallOfferings();
+      })
+      .catch((err) => {
+        setConfirmLoading(false);
+      });
   };
   const fetchallOfferings = () => {
     setloading(true);

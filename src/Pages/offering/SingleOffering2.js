@@ -62,7 +62,9 @@ const SingleOffering2 = () => {
           dispatch(
             createAlert({
               type: "error",
-              message: "Something went wrong! Try again later",
+              message: err?.response?.data?.raw?.code
+                ? err?.response?.data?.raw?.code
+                : "Something went wrong! Try again later",
               options: {
                 position: "top-right",
               },
@@ -200,6 +202,17 @@ const SingleOffering2 = () => {
                           </Link>
                         )}
                       </button>
+                      <a
+                        href={`mailto:${singleoffering?.User[0]?.Email}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <button
+                          className={` bg-cr-primary mt-2 text-white font-bold w-[250px] h-[45px] rounded-md`}
+                        >
+                          Chat with User
+                        </button>
+                      </a>
                       <div className="hidden">
                         <StripeCheckout
                           name="Care & Share Payment Service"

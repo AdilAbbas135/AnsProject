@@ -102,6 +102,9 @@ const AdminProfile = () => {
                   </div>
 
                   {/* CARDS */}
+                  <h1 className="font-bold text-lg lg:text-2xl text-cr-primary">
+                    ANALYTICS
+                  </h1>
                   <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     {/* Card */}
                     {cards.map((card) => (
