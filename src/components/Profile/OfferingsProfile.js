@@ -39,13 +39,13 @@ const OfferingsProfile = () => {
   };
 
   const handleOk = () => {
-    setConfirmLoading(true);
+    // setConfirmLoading(true);
     submitBtn.click();
   };
 
   const AddOffering = async (e) => {
+    console.log("i am calling in add offering");
     e.preventDefault();
-
     const data = new FormData();
     data.append("featuredImage", featuredImage);
     data.append("logoImage", logoImg);
@@ -54,9 +54,6 @@ const OfferingsProfile = () => {
     data.append("startDate", offeringdata.startDate);
     data.append("endDate", offeringdata.endDate);
     data.append("target", offeringdata.target);
-    data.append("minInvestment", offeringdata.minInvestment);
-    data.append("maxInvestment", offeringdata.maxInvestment);
-    data.append("ppUnit", offeringdata.ppUnit);
     data.append("issueType", offeringdata.issueType);
     data.append("description", offeringdata.description);
     data.append("shortDescription", offeringdata.shortDescription);
@@ -136,7 +133,7 @@ const OfferingsProfile = () => {
                 onClick={showModal}
                 className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Add Charity
+                Add Charity Request
               </button>
               <Modal
                 title="Add Charity"
@@ -153,7 +150,7 @@ const OfferingsProfile = () => {
                     <div className="bg-white px-4 pb-4 sm:p-6 sm:pb-4">
                       <dl className="space-y-2 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10 md:space-y-0">
                         <div>
-                          <label>Charity Name</label>
+                          <label>Charity Title</label>
                           <input
                             required
                             type="text"
@@ -213,51 +210,7 @@ const OfferingsProfile = () => {
                             className="mt-1 mb-1 w-full  rounded p-2"
                           />
                         </div>
-                        <div>
-                          <label>Minimum Investment</label>
-                          <input
-                            required
-                            type="number"
-                            value={offeringdata.minInvestment}
-                            onChange={(e) => {
-                              setofferingdata({
-                                ...offeringdata,
-                                minInvestment: e.target.value,
-                              });
-                            }}
-                            className="mt-1 mb-1 w-full  rounded p-2"
-                          />
-                        </div>
-                        <div>
-                          <label>Maximum Investment</label>
-                          <input
-                            required
-                            type="number"
-                            value={offeringdata.maxInvestment}
-                            onChange={(e) => {
-                              setofferingdata({
-                                ...offeringdata,
-                                maxInvestment: e.target.value,
-                              });
-                            }}
-                            className="mt-1 mb-1 w-full  rounded p-2"
-                          />
-                        </div>
-                        <div>
-                          <label>Price Per Unit</label>
-                          <input
-                            required
-                            type="number"
-                            value={offeringdata.ppUnit}
-                            onChange={(e) => {
-                              setofferingdata({
-                                ...offeringdata,
-                                ppUnit: e.target.value,
-                              });
-                            }}
-                            className="mt-1 mb-1 w-full  rounded p-2"
-                          />
-                        </div>
+
                         <div>
                           <label>Issue Type</label>
                           <input
