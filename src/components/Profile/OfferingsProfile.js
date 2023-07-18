@@ -323,9 +323,7 @@ const OfferingsProfile = () => {
                     <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-700">
                       Goal
                     </th>
-                    <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-700">
-                      Max Raise
-                    </th>
+
                     <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-700">
                       Status
                     </th>
@@ -344,7 +342,6 @@ const OfferingsProfile = () => {
                       </td>
                       <td className="py-3 px-5">{offering?.name}</td>
                       <td className="py-3 px-5">{offering?.target}</td>
-                      <td className="py-3 px-5">{offering.maxInvestment}</td>
 
                       <td className="py-3 px-5">Active</td>
 
